@@ -828,8 +828,11 @@ function oc_admin_head() {
 	<![endif]-->
 	');
 		if (OC_WP_GTE_27) {
-			add_meta_box('oc_tag_controls', 'tagaroo Tags', 'oc_render_tag_controls', 'post', 'normal', 'high');
-			add_meta_box('oc_image_controls', 'tagaroo Images', 'oc_render_image_controls', 'post', 'normal', 'high');
+			$tagaroo_post_types = apply_filters('oc_tagaroo_post_types', array('post'));
+			foreach ($tagaroo_post_types as $post_type) {
+				add_meta_box('oc_tag_controls', 'tagaroo Tags', 'oc_render_tag_controls', $post_type, 'normal', 'high');
+				add_meta_box('oc_image_controls', 'tagaroo Images', 'oc_render_image_controls', $post_type, 'normal', 'high');
+			}
 		}
 	}
 }
@@ -878,7 +881,7 @@ function oc_save_post($post_id, $post) {
 		return;
 	}
 	if ($post->post_status == 'publish') {
-		// commit the content to opencalais
+		// commit the content to opencalais1
 		$privacy_prefs = get_option('oc_privacy_prefs');
 
 		$oc_id = get_post_meta($post_id, 'oc_commit_id');
