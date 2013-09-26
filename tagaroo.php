@@ -882,7 +882,7 @@ function oc_save_post($post_id, $post) {
 		return;
 	}
 	if ($post->post_status == 'publish') {
-		// commit the content to opencalais1
+		// commit the content to opencalais
 		$privacy_prefs = get_option('oc_privacy_prefs');
 
 		$oc_id = get_post_meta($post_id, 'oc_commit_id');
